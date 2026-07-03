@@ -3,35 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Beltah Systems | Elite Digital Engineering & Technical Solutions</title>
+  <title>Beltah Systems | Enterprise Software Architecture & Technical Operations</title>
   
-  <!-- UI Fonts & Vector Systems -->
+  <!-- Fonts & Graphics Vector Systems -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    /* --- SYSTEM STRUCTURAL PALETTE DESIGN --- */
+    /* --- 1. ENTERPRISE PREMIUM PALETTE DESIGN --- */
     :root {
-      --bg-base: #030307;
-      --bg-surface: rgba(10, 11, 22, 0.85);
-      --bg-card: rgba(18, 20, 38, 0.6);
-      --border-subtle: rgba(255, 255, 255, 0.12);
-      
-      /* High-Visibility Modern Cyber Neon Accents */
-      --neon-purple: #9d4edd;
-      --neon-cyan: #00f5d4;
-      --neon-blue: #3a86ff;
-      --neon-pink: #ff007f;
-      --neon-emerald: #00f5aa;
-      
-      --text-main: #ffffff;
-      --text-muted: #94a3b8;
+      --bg: #050816;
+      --surface: #0B1220;
+      --card: #111827;
+
+      --primary: #3B82F6;
+      --secondary: #06B6D4;
+      --accent: #8B5CF6;
+      --success: #22C55E;
+
+      --text: #F8FAFC;
+      --muted: #94A3B8;
+
+      --gradient: linear-gradient(135deg, #3B82F6, #8B5CF6, #06B6D4);
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
       
       --font-sans: 'Plus Jakarta Sans', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
-      --ease-spring: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+      --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
     }
 
     * {
@@ -40,768 +40,1344 @@
       padding: 0;
     }
 
-    html, body {
-      width: 100%;
-      min-height: 100vh;
-      background-color: var(--bg-base);
-      color: var(--text-main);
-      font-family: var(--font-sans);
-      overflow-x: hidden;
+    html {
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
-    /* --- CANVAS ENGINE LAYER --- */
-    #aurora-canvas {
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* --- 14. GLOWING LOADING MATRIX --- */
+    #loading-screen {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: var(--bg);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.6s var(--ease-smooth), visibility 0.6s;
+    }
+    
+    .loader-logo {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: 4px;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: logoGlow 2s infinite ease-in-out;
+    }
+
+    @keyframes logoGlow {
+      0%, 100% { filter: drop-shadow(0 0 10px rgba(59,130,246,0.3)); opacity: 0.6; }
+      50% { filter: drop-shadow(0 0 30px rgba(139,92,246,0.8)); opacity: 1; }
+    }
+
+    /* --- ADVANCED ENGINE BACKGROUND BLOBS --- */
+    #canvas-matrix {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
       z-index: 1;
       pointer-events: none;
     }
 
-    .app-container {
-      position: relative;
+    /* --- CURSOR GLOW INTERACTION SYSTEM --- */
+    #cursor-glow {
+      position: fixed;
+      top: 0; left: 0;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(6,182,212,0.06) 0%, transparent 70%);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
       z-index: 2;
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
+      transition: width 0.3s, height 0.3s;
     }
 
-    /* --- CLASSIC HIGH CONTRAST GLASS PANELS --- */
-    .glass-panel {
-      background: var(--bg-surface);
+    /* --- SCROLL PROGRESS INDICATOR --- */
+    #scroll-progress {
+      position: fixed;
+      top: 0; left: 0; height: 4px;
+      background: var(--gradient);
+      width: 0%; z-index: 10000;
+    }
+
+    .app-shell {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* --- PREMIUM GLASS COMPONENT DESIGNS --- */
+    .panel-glass {
+      background: var(--surface);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--border-subtle);
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
     }
 
-    .glass-card {
-      background: var(--bg-card);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid var(--border-subtle);
+    .card-glass {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.03);
       border-radius: 16px;
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.5s var(--ease-smooth);
+      perspective: 1000px;
     }
 
-    .glass-card:hover {
-      border-color: var(--neon-cyan);
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 15px 35px rgba(0, 245, 212, 0.15);
+    .card-glass:hover {
+      border-color: rgba(59, 130, 246, 0.3);
+      box-shadow: 0 15px 35px rgba(59, 130, 246, 0.1);
     }
 
-    /* --- ANIMATION ENTRANCE STYLES --- */
-    .reveal-node {
+    /* --- 8. ADVANCED BLUR-TO-CLEAR STAGGERED REVEAL --- */
+    .reveal-trigger {
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: blur(15px);
+      transform: translateY(40px);
+      transition: opacity 1s var(--ease-smooth), filter 1s var(--ease-smooth), transform 1s var(--ease-smooth);
     }
 
-    .reveal-node.visible {
+    .reveal-trigger.active-node {
       opacity: 1;
+      filter: blur(0px);
       transform: translateY(0);
     }
 
-    /* --- HEADER IDENTITY ENGINE --- */
+    /* --- INTERFACE HEADER core --- */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1.5rem 2.5rem;
-      margin-bottom: 3rem;
-    }
-
-    .brand-logo {
-      width: 44px;
-      height: 44px;
-      background: linear-gradient(135deg, var(--neon-purple), var(--neon-cyan));
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #000;
-      font-weight: 900;
-      font-size: 1.4rem;
-      box-shadow: 0 0 25px var(--neon-purple);
+      margin-top: 2rem;
+      margin-bottom: 3.5rem;
     }
 
     .brand-meta h1 {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: 800;
       letter-spacing: -0.5px;
-      text-shadow: 0 0 10px rgba(255,255,255,0.1);
     }
 
     .brand-meta p {
       font-size: 0.75rem;
-      color: var(--neon-cyan);
       font-family: var(--font-mono);
-      font-weight: 700;
+      color: var(--secondary);
+      font-weight: 600;
     }
 
-    .status-indicator {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      background: rgba(0, 245, 170, 0.12);
-      border: 1px solid var(--neon-emerald);
-      padding: 0.6rem 1.2rem;
-      border-radius: 30px;
-      color: var(--neon-emerald);
-      box-shadow: 0 0 15px rgba(0, 245, 170, 0.2);
-    }
-
-    .pulse-dot {
-      width: 8px;
-      height: 8px;
-      background-color: var(--neon-emerald);
-      border-radius: 50%;
-      animation: pulse 1.8s infinite;
-    }
-
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(0, 245, 170, 0.7); }
-      70% { box-shadow: 0 0 0 8px rgba(0, 245, 170, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(0, 245, 170, 0); }
-    }
-
-    /* --- HERO DISPLAY LAYOUT --- */
-    .hero-grid {
+    /* --- 2. PREMIUM HERO ARCHITECTURE --- */
+    .hero-layout {
       display: grid;
-      grid-template-columns: 1.25fr 0.75fr;
-      gap: 2rem;
-      margin-bottom: 4rem;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2.5rem;
+      margin-bottom: 5rem;
     }
 
-    @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr; }
+    @media (max-width: 950px) {
+      .hero-layout { grid-template-columns: 1fr; }
     }
 
-    .profile-hero-panel {
-      padding: 3.5rem;
+    .hero-context {
+      padding: 4.5rem 3.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
-    .profile-hero-panel h2 {
-      font-size: 3.25rem;
+    .hero-context h2 {
+      font-size: 3.75rem;
       font-weight: 800;
       line-height: 1.1;
-      letter-spacing: -1.5px;
+      letter-spacing: -2px;
       margin-bottom: 1.5rem;
-    }
-
-    .profile-hero-panel h2 span {
-      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-blue));
+      background: linear-gradient(to right, #fff, var(--muted));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 30px rgba(0, 245, 212, 0.2);
     }
 
-    .profile-hero-panel p {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-      line-height: 1.7;
-      margin-bottom: 2.5rem;
+    .hero-context h2 span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    /* --- CTA BUTTON DESIGNS --- */
-    .cta-group {
+    .hero-context .sub-tags {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+      font-weight: 500;
+    }
+
+    .action-row {
       display: flex;
       gap: 1.2rem;
       flex-wrap: wrap;
     }
 
-    .btn {
+    .action-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.85rem;
-      padding: 1rem 2rem;
-      border-radius: 12px;
+      gap: 0.75rem;
+      padding: 1.1rem 2.2rem;
+      border-radius: 14px;
       font-size: 0.95rem;
       font-weight: 700;
       text-decoration: none;
       cursor: pointer;
-      transition: all 0.4s var(--ease-spring);
+      transition: all 0.4s var(--ease-smooth);
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--neon-purple), #5b21b6);
+    .btn-gradient {
+      background: var(--gradient);
       color: white;
       border: none;
-      box-shadow: 0 0 20px rgba(157, 78, 221, 0.4);
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
     }
 
-    .btn-primary:hover {
+    .btn-gradient:hover {
       transform: translateY(-3px);
-      box-shadow: 0 0 30px var(--neon-purple);
+      box-shadow: 0 15px 35px rgba(59, 130, 246, 0.5);
     }
 
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.05);
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.02);
       color: white;
-      border: 1px solid var(--border-subtle);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: var(--neon-cyan);
-      box-shadow: 0 0 15px rgba(0, 245, 212, 0.3);
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--secondary);
     }
 
-    /* --- CONSOLE / TELEMETRY MONITOR --- */
-    .monitor-panel {
-      padding: 1.75rem;
+    /* --- LIVE TELEMETRY SYSTEM CONSOLE --- */
+    .console-panel {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
     }
 
-    .monitor-header {
+    .console-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
       padding-bottom: 1rem;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
     }
 
-    .terminal-dots {
-      display: flex;
-      gap: 8px;
-    }
+    .window-dots { display: flex; gap: 8px; }
+    .w-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .wd-r { background: #ef4444; }
+    .wd-y { background: #f59e0b; }
+    .wd-g { background: #10b981; }
 
-    .dot { width: 12px; height: 12px; border-radius: 50%; }
-    .dot-r { background: #ff5f56; }
-    .dot-y { background: #ffbd2e; }
-    .dot-g { background: #27c93f; }
-
-    .terminal-body {
+    .console-body {
       font-family: var(--font-mono);
       font-size: 0.85rem;
-      line-height: 1.6;
-      min-height: 240px;
+      line-height: 1.7;
+      color: var(--accent);
+      min-height: 280px;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.6rem;
     }
 
-    .term-ln { display: flex; gap: 0.75rem; }
-    .term-pmp { color: var(--neon-cyan); font-weight: bold; }
-
-    /* --- DOMAIN MATRIX CONTROLS --- */
-    .section-title {
-      font-size: 2.25rem;
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 2rem;
-      letter-spacing: -1px;
-    }
-
-    .matrix-tabs {
+    /* --- 10. STATISTICS STRIP ARCHITECTURE --- */
+    .metrics-container {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.75rem;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 0.5rem;
-      border-radius: 16px;
-      border: 1px solid var(--border-subtle);
-      margin-bottom: 3rem;
-    }
-
-    .matrix-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      padding: 1.1rem;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-      transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-    }
-
-    .matrix-btn.active {
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    }
-
-    .matrix-content-pane {
-      display: none;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 2rem;
-      margin-bottom: 5rem;
+      margin-bottom: 6rem;
+      padding: 2.5rem;
     }
 
-    .matrix-content-pane.active {
+    .metric-card {
+      text-align: center;
+    }
+
+    .metric-card h4 {
+      font-size: 3rem;
+      font-weight: 800;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .metric-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    /* --- 3. DEDICATED DOMAIN SERVICES ARCHITECTURE --- */
+    .section-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .services-master-grid {
       display: grid;
-      animation: transitionFrame 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2.5rem;
+      margin-bottom: 6rem;
     }
 
-    @keyframes transitionFrame {
-      from { opacity: 0; transform: scale(0.96) translateY(20px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
+    .service-block {
+      padding: 2.5rem;
     }
 
-    .card-icon {
-      width: 52px;
-      height: 52px;
+    .service-block h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding-bottom: 1rem;
+    }
+
+    .service-block.tech h3 { color: var(--primary); }
+    .service-block.plumb h3 { color: var(--secondary); }
+
+    .nodes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .node-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+    }
+
+    .node-item i {
+      margin-top: 0.25rem;
+      font-size: 0.9rem;
+    }
+    .tech .node-item i { color: var(--accent); }
+    .plumb .node-item i { color: var(--success); }
+
+    .node-text h5 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.15rem;
+    }
+
+    .node-text p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* --- 11. DYNAMIC SKILLS MATRIX --- */
+    .skills-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      margin-bottom: 6rem;
+    }
+
+    .skill-node {
+      background: rgba(255,255,255,0.01);
+      padding: 1.5rem;
       border-radius: 12px;
-      background: rgba(157, 78, 221, 0.15);
-      border: 1px solid var(--neon-purple);
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .skill-meta {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .track-outer {
+      width: 100%; height: 6px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 4px; overflow: hidden;
+    }
+
+    .track-inner {
+      height: 100%; width: 0%;
+      background: var(--gradient);
+      border-radius: 4px;
+      transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* --- 4 & 15. DYNAMIC SCALABLE PORTFOLIO ENGINE --- */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+      margin-bottom: 6rem;
+    }
+
+    .showcase-card {
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .showcase-img-frame {
+      width: 100%; height: 200px;
+      background: linear-gradient(45deg, #1f2937, #111827);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--neon-purple);
-      font-size: 1.4rem;
+      position: relative;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .showcase-img-frame i {
+      font-size: 3.5rem;
+      color: rgba(255,255,255,0.1);
+      transition: transform 0.5s var(--ease-smooth);
+    }
+
+    .showcase-card:hover .showcase-img-frame i {
+      transform: scale(1.1) rotate(3deg);
+      color: rgba(59, 130, 246, 0.2);
+    }
+
+    .showcase-body {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .showcase-body h4 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+
+    .showcase-body p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
       margin-bottom: 1.5rem;
-      box-shadow: 0 0 15px rgba(157, 78, 221, 0.2);
     }
 
-    .cyan-icon .card-icon {
-      background: rgba(0, 245, 212, 0.15);
-      border: 1px solid var(--neon-cyan);
-      color: var(--neon-cyan);
-      box-shadow: 0 0 15px rgba(0, 245, 212, 0.2);
+    .tech-pill-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+      margin-top: auto;
     }
 
-    .blue-icon .card-icon {
-      background: rgba(58, 134, 255, 0.15);
-      border: 1px solid var(--neon-blue);
-      color: var(--neon-blue);
-      box-shadow: 0 0 15px rgba(58, 134, 255, 0.2);
-    }
-
-    .glass-card h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: 0.75rem; }
-    .glass-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
-
-    /* --- EXTERNAL PROJECT ENGINE SYSTEMS --- */
-    .project-link-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 5rem;
-    }
-
-    .project-anchor {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .project-badge {
-      display: inline-block;
+    .tech-pill {
       font-family: var(--font-mono);
-      font-size: 0.7rem;
-      font-weight: bold;
+      font-size: 0.75rem;
+      font-weight: 700;
       padding: 0.3rem 0.75rem;
       border-radius: 6px;
-      background: rgba(255, 0, 127, 0.15);
-      color: var(--neon-pink);
-      border: 1px solid var(--neon-pink);
+      background: rgba(59, 130, 246, 0.1);
+      color: var(--primary);
+      border: 1px solid rgba(59, 130, 246, 0.15);
+    }
+
+    .showcase-anchors {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .showcase-anchors a {
+      flex: 1;
+      text-align: center;
+      padding: 0.75rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    /* --- 9. TRUST TESTIMONIAL MATRIX --- */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 6rem;
+    }
+
+    .review-card {
+      padding: 2.5rem;
+    }
+
+    .stars-row {
+      color: #f59e0b;
+      margin-bottom: 1.25rem;
+      font-size: 0.9rem;
+    }
+
+    .review-card p {
+      color: var(--text);
+      font-size: 1rem;
+      line-height: 1.6;
+      font-style: italic;
+    }
+
+    /* --- 5 & 7. WHATSAPP DATA PIPELINE & SCHEDULER --- */
+    .pipeline-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 3rem;
+      padding: 4rem;
+      margin-bottom: 6rem;
+    }
+
+    @media (max-width: 950px) {
+      .pipeline-grid { grid-template-columns: 1fr; padding: 2.5rem; }
+    }
+
+    .pipeline-info h3 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -1px;
       margin-bottom: 1rem;
     }
 
-    /* --- DIRECT WHATSAPP ENGAGEMENT ENGINE (BOOKING SYSTEM) --- */
-    .booking-section {
-      padding: 3.5rem;
-      margin-bottom: 5rem;
+    .pipeline-info p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 2rem;
     }
 
-    .booking-grid {
-      display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: 3rem;
+    .pipeline-meta-nodes {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
     }
 
-    @media (max-width: 850px) {
-      .booking-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .meta-node {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .meta-node i { color: var(--secondary); }
+
+    .form-matrix {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
     }
 
-    .booking-info h3 { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; }
-    .booking-info p { color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem; }
-
-    .input-row {
+    .input-split {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-bottom: 1.25rem;
+      gap: 1.25rem;
     }
 
     @media (max-width: 600px) {
-      .input-row { grid-template-columns: 1fr; }
+      .input-split { grid-template-columns: 1fr; }
     }
 
-    .field-wrapper {
+    .input-block {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
     }
 
-    .field-wrapper label {
+    .input-block label {
       font-size: 0.85rem;
       font-weight: 700;
-      color: var(--text-main);
-      font-family: var(--font-sans);
+      color: var(--text);
     }
 
-    .ctrl-input, .ctrl-select, .ctrl-textarea {
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid var(--border-subtle);
-      border-radius: 10px;
+    .form-ctrl {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255,255,255,0.08);
       padding: 0.9rem 1.2rem;
+      border-radius: 12px;
       color: white;
       font-family: var(--font-sans);
       font-size: 0.95rem;
-      transition: all 0.3s ease;
+      transition: all 0.3s;
     }
 
-    .ctrl-input:focus, .ctrl-select:focus, .ctrl-textarea:focus {
+    .form-ctrl:focus {
       outline: none;
-      border-color: var(--neon-cyan);
-      box-shadow: 0 0 12px rgba(0, 245, 212, 0.25);
+      border-color: var(--primary);
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.25);
     }
 
-    .ctrl-textarea { resize: none; min-height: 110px; margin-bottom: 1.5rem; }
+    textarea.form-ctrl {
+      resize: none; min-height: 120px;
+    }
 
-    /* --- FOOTER REGISTRY --- */
+    /* --- 12. HIGH-VISIBILITY CONTACT CHANNEL REGISTRY --- */
+    .channels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 6rem;
+    }
+
+    .channel-anchor {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 1.75rem;
+    }
+
+    .channel-anchor i {
+      font-size: 1.75rem;
+      color: var(--primary);
+    }
+
+    .channel-meta h6 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.15rem; }
+    .channel-meta p { font-size: 0.85rem; color: var(--muted); }
+
+    /* --- 13. ENTERPRISE FOOTER SYSTEM --- */
     footer {
-      border-top: 1px solid var(--border-subtle);
-      padding: 2.5rem 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 5rem 0 3rem 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr repeat(3, 1fr);
+      gap: 3rem;
+      margin-bottom: 4rem;
+    }
+
+    @media (max-width: 850px) {
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    .footer-brand h5 { font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; }
+    .footer-brand p { color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+
+    .footer-col h6 {
+      font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text);
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+    .footer-col ul a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col ul a:hover { color: var(--primary); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
     }
 
-    footer p { font-size: 0.9rem; color: var(--text-muted); }
+    /* --- 6. FLOATING SYSTEM WHATSAPP HUB --- */
+    #floating-hub {
+      position: fixed;
+      bottom: 2.5rem; right: 2.5rem;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+    }
+
+    .hub-tip {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 0.6rem 1.2rem;
+      border-radius: 12px;
+      color: white;
+      font-size: 0.85rem;
+      font-weight: 700;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(15px);
+      transition: all 0.3s var(--ease-smooth);
+      box-shadow: var(--shadow);
+      pointer-events: none;
+    }
+
+    #floating-hub:hover .hub-tip {
+      opacity: 1; transform: translateX(0);
+    }
+
+    .hub-trigger {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: #22c55e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.75rem;
+      box-shadow: 0 0 25px rgba(34, 197, 94, 0.4);
+      animation: hubPulse 2s infinite;
+    }
+
+    @keyframes hubPulse {
+      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
+      70% { box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
   </style>
 </head>
 <body>
 
-  <canvas id="aurora-canvas"></canvas>
+  <!-- Loading Screen Framework -->
+  <div id="loading-screen">
+    <div class="loader-logo">BELTAH SYSTEMS</div>
+  </div>
 
-  <div class="app-container">
+  <!-- Realtime Scroll Infrastructure -->
+  <div id="scroll-progress"></div>
+
+  <!-- Dynamic Render Canvas Grid -->
+  <canvas id="canvas-matrix"></canvas>
+  <div id="cursor-glow"></div>
+
+  <div class="app-shell">
     
     <!-- Top Identity Navigation Core -->
-    <header class="glass-panel reveal-node">
-      <div class="brand-group" style="display: flex; align-items: center; gap: 1rem;">
-        <div class="brand-logo">B</div>
-        <div class="brand-meta">
-          <h1>BELTAH SYSTEMS</h1>
-          <p>FOUNDER // SOLUTIONS ENGINEER</p>
-        </div>
+    <header class="panel-glass reveal-trigger">
+      <div class="brand-meta">
+        <h1>BELTAH SYSTEMS</h1>
+        <p>ENTERPRISE SOFTWARE & TECHNICAL ENGINEERING</p>
       </div>
-      <div class="status-indicator">
-        <div class="pulse-dot"></div>
-        <span>OPERATIONAL ALPHA MATRIX</span>
+      <div class="action-row" style="margin:0;">
+        <a href="#pipeline-anchor" class="action-btn btn-gradient" style="padding: 0.6rem 1.2rem; font-size: 0.85rem; border-radius: 10px;">
+          <i class="fa-solid fa-bolt"></i> Core Console
+        </a>
       </div>
     </header>
 
-    <!-- Main Hero Matrix Layer -->
-    <main class="hero-grid">
-      <section class="glass-panel profile-hero-panel reveal-node">
-        <h2>Engineering Core <span>Automation Systems</span> & Technical Assets.</h2>
-        <p>Architecting robust software interfaces, automated messaging networks, continuous digital engagement layers, and precision structural plumbing frameworks under unified premium branding profiles.</p>
-        <div class="cta-group">
-          <a href="#pipeline-gate" class="btn btn-primary"><i class="fa-solid fa-calendar-check"></i> Book Project Pipeline</a>
-          <a href="#live-nodes" class="btn btn-secondary">Explore Production Deployments</a>
+    <!-- 2. HIGH CONTRAST UPGRADED HERO LAYER -->
+    <section class="hero-layout">
+      <div class="panel-glass hero-context reveal-trigger">
+        <h2>Building Smart <span>Digital Solutions</span> for Businesses.</h2>
+        <div class="sub-tags">Web Development • AI Automation • WhatsApp Bots • Software Solutions • Plumbing Services • Technical Support</div>
+        <div class="action-row">
+          <a href="#showcase-anchor" class="action-btn btn-gradient">🚀 View My Projects</a>
+          <a href="https://wa.me/254700000000" target="_blank" class="action-btn btn-outline">💬 Book on WhatsApp</a>
+          <a href="#pipeline-anchor" class="action-btn btn-outline">📞 Schedule Consultation</a>
+        </div>
+      </div>
+
+      <!-- Live Telemetry Monitor Section -->
+      <div class="panel-glass console-panel reveal-trigger">
+        <div class="console-header">
+          <div class="window-dots">
+            <div class="w-dot wd-r"></div>
+            <div class="w-dot wd-y"></div>
+            <div class="w-dot wd-g"></div>
+          </div>
+          <div style="font-family:var(--font-mono); font-size:0.8rem; color:var(--muted)">beltah_core_telemetry.sh</div>
+        </div>
+        <div class="console-body" id="live-terminal">
+          <!-- Dynamic System String Injection -->
         </div>
       </section>
+    </section>
 
-      <!-- Terminal Telemetry Visualizer -->
-      <section class="glass-panel monitor-panel reveal-node">
-        <div class="monitor-header">
-          <div class="terminal-dots">
-            <div class="dot dot-r"></div>
-            <div class="dot dot-y"></div>
-            <div class="dot dot-g"></div>
-          </div>
-          <div class="monitor-title" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">beltah_core_stream.sh</div>
-        </div>
-        <div class="terminal-body" id="console-stream">
-          <!-- Populated by JavaScript -->
-        </div>
-      </section>
-    </main>
-
-    <!-- Interactive Segmented Service Section Mapping -->
-    <h2 class="section-title reveal-node">Functional Domain Matrix</h2>
-    
-    <nav class="matrix-tabs reveal-node">
-      <button class="matrix-btn active" data-target="tech-pane"><i class="fa-solid fa-code"></i> Beltah Tech</button>
-      <button class="matrix-btn" data-target="mod-pane"><i class="fa-solid fa-shield-halved"></i> Moderation Ops</button>
-      <button class="matrix-btn" data-target="plumb-pane"><i class="fa-solid fa-faucet-drip"></i> Beltah Plumbing</button>
-    </nav>
-
-    <!-- Content Sections -->
-    <div class="matrix-content-pane active" id="tech-pane">
-      <div class="glass-card">
-        <div class="card-icon"><i class="fa-solid fa-layer-group"></i></div>
-        <h3>Full-Stack Systems Web Development</h3>
-        <p>Engineering premium interfaces and scalable single-page engines using React, Tailwind CSS, and Firebase infrastructures.</p>
+    <!-- 10. ANIMATED STATISTICS MATRIX STRIP -->
+    <section class="panel-glass metrics-container reveal-trigger">
+      <div class="metric-card">
+        <h4 class="counter" data-target="40">0</h4>
+        <p>Completed Projects</p>
       </div>
-      <div class="glass-card cyan-icon">
-        <div class="card-icon"><i class="fa-solid fa-address-book"></i></div>
-        <h3>Beltah VCF Manager Architecture</h3>
-        <p>Production-grade tracking mechanisms and matrix structures engineered to ingest, parse, and export community contact maps cleanly.</p>
+      <div class="metric-card">
+        <h4 class="counter" data-target="15">0</h4>
+        <p>Business Clients</p>
       </div>
-      <div class="glass-card blue-icon">
-        <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
-        <h3>WhatsApp Automation Bots</h3>
-        <p>Developing rule-based communication logic pipelines and system integrations to execute programmatic chat loops smoothly.</p>
+      <div class="metric-card">
+        <h4 class="counter" data-target="100">0</h4>
+        <p>Client Satisfaction %</p>
       </div>
-    </div>
-
-    <div class="matrix-content-pane" id="mod-pane">
-      <div class="glass-card blue-icon">
-        <div class="card-icon"><i class="fa-solid fa-comments"></i></div>
-        <h3>Digital Engagement Specialist</h3>
-        <p>Operating across global communication nodes managing real-time chat optimization, text moderation, and team metrics execution.</p>
-      </div>
-      <div class="glass-card cyan-icon">
-        <div class="card-icon"><i class="fa-solid fa-chart-line"></i></div>
-        <h3>Operations Metric Compliance</h3>
-        <p>Maintaining strict performance parameters, quick response latencies, and systematic platform protocol processing.</p>
-      </div>
-    </div>
-
-    <div class="matrix-content-pane" id="plumb-pane">
-      <div class="glass-card cyan-icon">
-        <div class="card-icon"><i class="fa-solid fa-faucet"></i></div>
-        <h3>Beltah Plumbing Solutions</h3>
-        <p>Providing professional structural plumbing integrations, structural network planning, and commercial water layout models.</p>
-      </div>
-      <div class="glass-card">
-        <div class="card-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-        <h3>Emergency Diagnostics & Maintenance</h3>
-        <p>Executing critical pressure evaluations, rapid leak localization, and infrastructure stabilization arrays precisely.</p>
-      </div>
-    </div>
-
-    <!-- Active Production Deployments (Editable Link Array Node) -->
-    <h2 class="section-title reveal-node" id="live-nodes">Active Production Matrices</h2>
-    <div class="project-link-grid reveal-node">
-      <a href="https://beltah-tech-marketplace.vercel.app" target="_blank" class="project-anchor">
-        <div class="glass-card cyan-icon">
-          <div class="project-badge">LIVE PLATFORM</div>
-          <h3>Beltah Tech Marketplace</h3>
-          <p>Multi-vendor marketplace infrastructure created to process technology product profiles and custom development service transactions.</p>
-        </div>
-      </a>
-      <a href="https://beltah-vcf-gains.vercel.app" target="_blank" class="project-anchor">
-        <div class="glass-card">
-          <div class="project-badge">COMMUNITY APPARATUS</div>
-          <h3>Beltah VCF GAINS</h3>
-          <p>Community contact gathering network system utilizing specialized target contact acquisition rules and data generation matrices.</p>
-        </div>
-      </a>
-      <a href="https://beltah-plumbing.vercel.app" target="_blank" class="project-anchor">
-        <div class="glass-card blue-icon">
-          <div class="project-badge">ENTERPRISE HUB</div>
-          <h3>Beltah Plumbing Portal</h3>
-          <p>Official corporate portfolio mapping professional layout arrays, service matrices, and immediate booking points.</p>
-        </div>
-      </a>
-    </div>
-
-    <!-- Direct WhatsApp Booking Architecture -->
-    <section class="glass-panel booking-section reveal-node" id="pipeline-gate">
-      <div class="booking-grid">
-        <div class="booking-info">
-          <h3>Initialize Pipeline Engagement</h3>
-          <p>Submit your functional parameters directly into my personal communication matrix. The interface constructs an explicit project file mapping system instructions straight to WhatsApp.</p>
-          <div style="display: flex; gap: 1rem; flex-direction: column; font-family: var(--font-mono); font-size: 0.85rem; color: var(--neon-cyan);">
-            <div><i class="fa-solid fa-clock"></i> Active Operations Block: 7 PM - 11 PM</div>
-            <div><i class="fa-solid fa-location-dot"></i> Regional Hub Deployment: Nairobi, Kenya</div>
-          </div>
-        </div>
-        
-        <form id="whatsapp-booking-engine" onsubmit="executeBookingSequence(event)">
-          <div class="input-row">
-            <div class="field-wrapper">
-              <label>Client Identity Name</label>
-              <input type="text" id="client-name" class="ctrl-input" placeholder="e.g., John Doe" required>
-            </div>
-            <div class="field-wrapper">
-              <label>Target Operational Domain</label>
-              <select id="project-domain" class="ctrl-select" required>
-                <option value="Full-Stack Engineering Framework">Beltah Tech (Web/Software)</option>
-                <option value="WhatsApp Automation System">Beltah Tech (Automation/Bot)</option>
-                <option value="Digital Moderation Strategy">Platform Chat Moderation</option>
-                <option value="Structural Plumbing Infrastructure">Beltah Plumbing Solutions</option>
-              </select>
-            </div>
-          </div>
-          <div class="field-wrapper">
-            <label>System Constraints & Project Instructions</label>
-            <textarea id="project-specs" class="ctrl-textarea" placeholder="Detail system parameters, timeline constraints, or engineering metrics..." required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
-            <i class="fa-brands fa-whatsapp"></i> Dispatch Project Message File
-          </button>
-        </form>
+      <div class="metric-card">
+        <h4 style="background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">24/7</h4>
+        <p>Support Availability</p>
       </div>
     </section>
 
-    <!-- Footer System Registry -->
-    <footer class="reveal-node">
-      <p>&copy; 2026 Beltah Systems. Engineered by Samuel Wainaina. All Rights Reserved.</p>
-      <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--neon-pink);">STATUS: DEPLOYED // VERCEL READY</p>
+    <!-- 3. DETAILED SERVICES ARCHITECTURE LAYERS -->
+    <section style="margin-bottom: 6rem;">
+      <div class="section-header reveal-trigger">
+        <h2>Operational Service Ecosystem</h2>
+        <p>High-performance engineering executed across software frameworks and technical utility designs.</p>
+      </div>
+
+      <div class="services-master-grid">
+        <!-- Tech Operations Array Block -->
+        <div class="panel-glass service-block tech reveal-trigger">
+          <h3><i class="fa-solid fa-laptop-code"></i> Beltah Tech</h3>
+          <div class="nodes-list">
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Custom Websites</h5><p>Tailored premium web products optimized for speed and scaling boundaries.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Portfolio Websites</h5><p>High-visibility personal profiles equipped with immersive tracking matrices.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Company Websites</h5><p>Corporate identity hubs structured to scale brand authority effectively.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>E-commerce</h5><p>Complete multi-vendor platforms with integrated payment transaction rails.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Landing Pages</h5><p>High-conversion modular designs focused on capturing data targets.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Admin Dashboards</h5><p>Deep operational data telemetry panels built to govern complex apps.</p></div></div>
+          </div>
+        </div>
+
+        <!-- Software Development Block -->
+        <div class="panel-glass service-block tech reveal-trigger">
+          <h3><i class="fa-solid fa-cubes"></i> Software Development</h3>
+          <div class="nodes-list">
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>React Applications</h5><p>Reactive, modular state machines delivering fluid client-side operations.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Firebase Systems</h5><p>Serverless infrastructure real-time bindings, authentication, and security systems.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>APIs</h5><p>Secure, RESTful communication backbones managing clean system data handshakes.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Full Stack Development</h5><p>Complete end-to-end alignment from presentation UI straight to data logic.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Database Design</h5><p>Structured query architectures engineered for fast lookups and record durability.</p></div></div>
+          </div>
+        </div>
+
+        <!-- AI & Automation Block -->
+        <div class="panel-glass service-block tech reveal-trigger">
+          <h3><i class="fa-solid fa-robot"></i> AI & Automation</h3>
+          <div class="nodes-list">
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>WhatsApp Bots</h5><p>Automated interaction engines driving customer retention loops inside WhatsApp.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>AI Chatbots</h5><p>Intelligent dialog structures trained to answer customer queries instantly.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Customer Support Automation</h5><p>System operations mitigating overhead bottlenecks via auto-responders.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Business Process Automation</h5><p>Converting recursive legacy routines into self-executing software chains.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Workflow Integration</h5><p>Binding cloud tools together for unified execution pipelines.</p></div></div>
+          </div>
+        </div>
+
+        <!-- Digital Services Block -->
+        <div class="panel-glass service-block tech reveal-trigger">
+          <h3><i class="fa-solid fa-headset"></i> Digital Services</h3>
+          <div class="nodes-list">
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Chat Moderation</h5><p>Remote oversight ensuring strict policy compliance across engagement tracks.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Community Management</h5><p>Cultivating active member interactions and scaling community nodes cleanly.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Technical Support</h5><p>Rapid triage handling system runtime breaks and configuration faults.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Virtual Assistance</h5><p>System executive administrative management covering digital tasks.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Content Management</h5><p>Structuring and maintaining critical web information assets.</p></div></div>
+          </div>
+        </div>
+
+        <!-- Networking & IT Block -->
+        <div class="panel-glass service-block tech reveal-trigger">
+          <h3><i class="fa-solid fa-network-wired"></i> Networking & IT</h3>
+          <div class="nodes-list">
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Computer Setup</h5><p>Optimizing custom operating system installations and physical workstation mounts.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Software Installation</h5><p>Configuring development tools and resolving underlying dependency conflicts.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Troubleshooting</h5><p>Isolating and resolving structural failures across device networks.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Remote Support</h5><p>Secure remote access execution over encryption bridges for fast bug fixes.</p></div></div>
+          </div>
+        </div>
+
+        <!-- Beltah Plumbing Array Block -->
+        <div class="panel-glass service-block plumb reveal-trigger">
+          <h3><i class="fa-solid fa-faucet-drip"></i> Beltah Plumbing</h3>
+          <div class="nodes-list">
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Residential Plumbing</h5><p>Mapping, installation, and upkeep of household water infrastructures.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Commercial Plumbing</h5><p>Heavy-duty fluid loop configurations engineered for high-occupancy sites.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Pipe Installation</h5><p>Precision welding and alignment of core structural supply vectors.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Leak Repairs</h5><p>Acoustic and structural diagnostics isolating localized fluid escape points.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Water Systems</h5><p>Integrating complex storage vessels, booster pumps, and pressure valves.</p></div></div>
+            <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Maintenance</h5><p>Scheduled preventative flushes to avert system failures.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. SKILLS METRICS GRID SECTION -->
+    <section style="margin-bottom: 6rem;">
+      <div class="section-header reveal-trigger">
+        <h2>Technical Core Capacities</h2>
+        <p>Quantified system competencies checked across baseline production runs.</p>
+      </div>
+      <div class="skills-wrapper reveal-trigger">
+        <div class="skill-node">
+          <div class="skill-meta"><span>HTML / CSS Architecture</span><span>95%</span></div>
+          <div class="track-outer"><div class="track-inner" data-width="95%"></div></div>
+        </div>
+        <div class="skill-node">
+          <div class="skill-meta"><span>JavaScript (ES6+) Engine Logic</span><span>90%</span></div>
+          <div class="track-outer"><div class="track-inner" data-width="90%"></div></div>
+        </div>
+        <div class="skill-node">
+          <div class="skill-meta"><span>React Framework Ecosystem</span><span>88%</span></div>
+          <div class="track-outer"><div class="track-inner" data-width="88%"></div></div>
+        </div>
+        <div class="skill-node">
+          <div class="skill-meta"><span>Firebase Core Backends</span><span>85%</span></div>
+          <div class="track-outer"><div class="track-inner" data-width="85%"></div></div>
+        </div>
+        <div class="skill-node">
+          <div class="skill-meta"><span>Node.js / API Architectures</span><span>80%</span></div>
+          <div class="track-outer"><div class="track-inner" data-width="80%"></div></div>
+        </div>
+        <div class="skill-node">
+          <div class="skill-meta"><span>AI Chat / Process Automation</span><span>92%</span></div>
+          <div class="track-outer"><div class="track-inner" data-width="92%"></div></div>
+        </div>
+        <div class="skill-node">
+          <div class="skill-meta"><span>Structural Plumbing Networks</span><span>85%</span></div>
+          <div class="track-outer"><div class="track-inner" data-width="85%"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 & 15. EXPANDED PORTFOLIO & FUTURE DOMAINS MATRIX -->
+    <section style="margin-bottom: 6rem;" id="showcase-anchor">
+      <div class="section-header reveal-trigger">
+        <h2>Production Node Deployments</h2>
+        <p>Active frameworks running live profiles across scalable host servers.</p>
+      </div>
+
+      <div class="portfolio-grid">
+        <!-- Marketplace Node -->
+        <div class="card-glass showcase-card reveal-trigger">
+          <div class="showcase-img-frame"><i class="fa-solid fa-store"></i></div>
+          <div class="showcase-body">
+            <h4>Beltah Tech Marketplace</h4>
+            <p>Multi-vendor ecommerce matrix tailored to route system engineering commodities, assets, and service listings cleanly.</p>
+            <div class="tech-pill-row">
+              <span class="tech-pill">React</span><span class="tech-pill">Tailwind</span><span class="tech-pill">Firebase</span>
+            </div>
+            <div class="showcase-anchors">
+              <a href="https://beltah-tech-marketplace.vercel.app" target="_blank" class="btn-gradient">Visit Website</a>
+              <a href="#" class="btn-outline">GitHub</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- VCF Gains Node -->
+        <div class="card-glass showcase-card reveal-trigger">
+          <div class="showcase-img-frame"><i class="fa-solid fa-address-card"></i></div>
+          <div class="showcase-body">
+            <h4>Beltah VCF GAINS</h4>
+            <p>Community platform utilizing algorithmic mapping routines to compile, parse, and partition target contact streams.</p>
+            <div class="tech-pill-row">
+              <span class="tech-pill">JavaScript</span><span class="tech-pill">VCF Core</span><span class="tech-pill">Storage API</span>
+            </div>
+            <div class="showcase-anchors">
+              <a href="https://beltah-vcf-gains.vercel.app" target="_blank" class="btn-gradient">Visit Website</a>
+              <a href="#" class="btn-outline">GitHub</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plumbing Portal Node -->
+        <div class="card-glass showcase-card reveal-trigger">
+          <div class="showcase-img-frame"><i class="fa-solid fa-faucet"></i></div>
+          <div class="showcase-body">
+            <h4>Beltah Plumbing Portal</h4>
+            <p>Professional enterprise portal detailing infrastructure routing capacities, fluid calculations, and system diagnostic records.</p>
+            <div class="tech-pill-row">
+              <span class="tech-pill">HTML5</span><span class="tech-pill">CSS Glass</span><span class="tech-pill">Interactions</span>
+            </div>
+            <div class="showcase-anchors">
+              <a href="https://beltah-plumbing.vercel.app" target="_blank" class="btn-gradient">Visit Website</a>
+              <a href="#" class="btn-outline">GitHub</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Automation Hub Future Slot -->
+        <div class="card-glass showcase-card reveal-trigger" style="opacity: 0.65;">
+          <div class="showcase-img-frame"><i class="fa-solid fa-robot"></i></div>
+          <div class="showcase-body">
+            <h4>Automation Dashboard</h4>
+            <p>Central workspace tracking system bot health, API consumption rates, and trigger behaviors across networks.</p>
+            <div class="tech-pill-row">
+              <span class="tech-pill">Node.js</span><span class="tech-pill">Websockets</span><span class="tech-pill">AI Logic</span>
+            </div>
+            <div class="showcase-anchors">
+              <a href="#" class="btn-outline" style="pointer-events: none;">Coming Soon...</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Client Portal Future Slot -->
+        <div class="card-glass showcase-card reveal-trigger" style="opacity: 0.65;">
+          <div class="showcase-img-frame"><i class="fa-solid fa-network-wired"></i></div>
+          <div class="showcase-body">
+            <h4>Client Project Hub</h4>
+            <p>Customer facing tracker for checking project progress metrics, wireframes, and payment statuses live.</p>
+            <div class="tech-pill-row">
+              <span class="tech-pill">Next.js</span><span class="tech-pill">Database Matrix</span>
+            </div>
+            <div class="showcase-anchors">
+              <a href="#" class="btn-outline" style="pointer-events: none;">Coming Soon...</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. SOCIAL VALIDATION TESTIMONIALS MODULE -->
+    <section style="margin-bottom: 6rem;">
+      <div class="section-header reveal-trigger">
+        <h2>System Endorsements</h2>
+        <p>Verified performance evaluations provided by client nodes.</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="panel-glass review-card reveal-trigger">
+          <div class="stars-row"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p>"Professional service. Delivered on time. The dashboard interface greatly accelerated our regional data gathering cycles."</p>
+        </div>
+        <div class="panel-glass review-card reveal-trigger">
+          <div class="stars-row"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p>"Amazing WhatsApp automation. Our response latencies vanished entirely once the rule engine took over the platform channel."</p>
+        </div>
+        <div class="panel-glass review-card reveal-trigger">
+          <div class="stars-row"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p>"Highly recommended. Seamless architecture integration covering both web software tools and real-world commercial facility operations."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 & 7. END-TO-END AUTOMATED BOOKING FRAMEWORK -->
+    <section class="panel-glass pipeline-grid reveal-trigger" id="pipeline-anchor">
+      <div class="pipeline-info">
+        <h3>Initialize System Engagement</h3>
+        <p>Input your operational metrics here. The system automatically structures a message object, appends calendar tokens, and streams the configuration straight into the WhatsApp channel.</p>
+        <div class="pipeline-meta-nodes">
+          <div class="meta-node"><i class="fa-solid fa-clock"></i> Active Operations Block: 7 PM - 11 PM EAT</div>
+          <div class="meta-node"><i class="fa-solid fa-microchip"></i> System Core Architecture: Nairobi, Kenya</div>
+        </div>
+      </div>
+
+      <form class="form-matrix" onsubmit="processBookingSequence(event)">
+        <div class="input-split">
+          <div class="input-block">
+            <label>Full Name</label>
+            <input type="text" id="bk-name" class="form-ctrl" placeholder="John Doe" required>
+          </div>
+          <div class="input-block">
+            <label>Company Name</label>
+            <input type="text" id="bk-company" class="form-ctrl" placeholder="ABC Ltd" required>
+          </div>
+        </div>
+        <div class="input-split">
+          <div class="input-block">
+            <label>Phone Number</label>
+            <input type="tel" id="bk-phone" class="form-ctrl" placeholder="+254..." required>
+          </div>
+          <div class="input-block">
+            <label>Email Address</label>
+            <input type="email" id="bk-email" class="form-ctrl" placeholder="john@abc.com" required>
+          </div>
+        </div>
+        <div class="input-split">
+          <div class="input-block">
+            <label>Service Needed</label>
+            <select id="bk-service" class="form-ctrl" required>
+              <option value="Website Development">Website Development</option>
+              <option value="Software Systems Engineering">Software Systems Engineering</option>
+              <option value="AI & Process Automation">AI & Process Automation</option>
+              <option value="Digital Moderation Strategy">Digital Moderation Strategy</option>
+              <option value="Infrastructure Plumbing Network">Infrastructure Plumbing Network</option>
+            </select>
+          </div>
+          <div class="input-block">
+            <label>Budget Allocation (KES)</label>
+            <input type="text" id="bk-budget" class="form-ctrl" placeholder="e.g., KES 50,000" required>
+          </div>
+        </div>
+        <div class="input-split">
+          <div class="input-block">
+            <label>Preferred Date</label>
+            <input type="date" id="bk-date" class="form-ctrl" required>
+          </div>
+          <div class="input-block">
+            <label>Project Timeline Target</label>
+            <input type="text" id="bk-timeline" class="form-ctrl" placeholder="e.g., 3 Weeks" required>
+          </div>
+        </div>
+        <div class="input-block">
+          <label>Project Description</label>
+          <textarea id="bk-desc" class="form-ctrl" placeholder="Detail system parameters, required tools, and targets..." required></textarea>
+        </div>
+        <button type="submit" class="action-btn btn-gradient" style="justify-content: center;">
+          <i class="fa-brands fa-whatsapp"></i> Dispatch Payload File to Channel
+        </button>
+      </form>
+    </section>
+
+    <!-- 12. HIGH-VISIBILITY CONTACT CHANNEL REGISTRY -->
+    <section class="channels-grid reveal-trigger">
+      <a href="https://wa.me/254700000000" target="_blank" class="panel-glass channel-anchor">
+        <i class="fa-brands fa-whatsapp" style="color:#22c55e"></i>
+        <div class="channel-meta"><h6>WhatsApp Terminal</h6><p>Secure Instant Line</p></div>
+      </a>
+      <a href="mailto:info@beltahsystems.com" class="panel-glass channel-anchor">
+        <i class="fa-solid fa-envelope" style="color:#ef4444"></i>
+        <div class="channel-meta"><h6>Email Node</h6><p>Official Mail Dispatch</p></div>
+      </a>
+      <a href="tel:+254700000000" class="panel-glass channel-anchor">
+        <i class="fa-solid fa-phone" style="color:#3b82f6"></i>
+        <div class="channel-meta"><h6>Voice Channel</h6><p>Direct Infrastructure Call</p></div>
+      </a>
+      <a href="#" class="panel-glass channel-anchor">
+        <i class="fa-brands fa-github" style="color:#f3f4f6"></i>
+        <div class="channel-meta"><h6>GitHub Registry</h6><p>Source Code Repositories</p></div>
+      </a>
+    </section>
+
+    <!-- 13. MODERN SAAS FOOTER FRAMEWORK -->
+    <footer class="reveal-trigger">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h5>BELTAH SYSTEMS</h5>
+          <p>Architecting next-generation software solutions, autonomous automation layers, and high-precision physical industrial systems.</p>
+        </div>
+        <div class="footer-col">
+          <h6>Systems Matrix</h6>
+          <ul>
+            <li><a href="#pipeline-anchor">Beltah Tech Hub</a></li>
+            <li><a href="#pipeline-anchor">Automation Core</a></li>
+            <li><a href="#pipeline-anchor">Plumbing Engineering</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h6>Deployments</h6>
+          <ul>
+            <li><a href="https://beltah-tech-marketplace.vercel.app" target="_blank">Marketplace Portal</a></li>
+            <li><a href="https://beltah-vcf-gains.vercel.app" target="_blank">VCF GAINS System</a></li>
+            <li><a href="https://beltah-plumbing.vercel.app" target="_blank">Plumbing Portal</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h6>Legal Registry</h6>
+          <ul>
+            <li><a href="#">Privacy Protocols</a></li>
+            <li><a href="#">Service Terms</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Beltah Systems. Engineered by Samuel Wainaina. All Rights Reserved.</p>
+        <p style="font-family: var(--font-mono); color: var(--secondary); font-size: 0.8rem;">HOST: VERCEL EDGE MATRIX</p>
+      </div>
     </footer>
 
   </div>
 
+  <!-- 6. FLOATING SYSTEM WHATSAPP ENGINE HUB -->
+  <a href="https://wa.me/254700000000" target="_blank" id="floating-hub">
+    <div class="hub-tip">Need a Website? Chat with Beltah</div>
+    <div class="hub-trigger"><i class="fa-brands fa-whatsapp"></i></div>
+  </a>
+
   <script>
-    /* --- SCROLL REVEAL TIMING LOOP INTERPOLATION --- */
-    function checkScrollReveal() {
-      const nodes = document.querySelectorAll('.reveal-node');
+    /* --- 14. LOADING SCREEN DISMISSER LOOPS --- */
+    window.addEventListener('load', () => {
+      const screen = document.getElementById('loading-screen');
+      setTimeout(() => {
+        screen.style.opacity = '0';
+        screen.style.visibility = 'hidden';
+        triggerSkillsAnimation();
+      }, 800);
+    });
+
+    /* --- SCROLL METER MONITOR --- */
+    window.addEventListener('scroll', () => {
+      const bar = document.getElementById('scroll-progress');
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      if (total > 0) {
+        bar.style.width = `${(window.pageYOffset / total) * 100}%`;
+      }
+    });
+
+    /* --- 8. SMOOTH BLUR REVEAL STAGGER ENGINE --- */
+    function verifyNodesReveal() {
+      const nodes = document.querySelectorAll('.reveal-trigger');
       nodes.forEach(n => {
-        const nodeTop = n.getBoundingClientRect().top;
-        if(nodeTop < window.innerHeight * 0.88) {
-          n.classList.add('visible');
+        const top = n.getBoundingClientRect().top;
+        if (top < window.innerHeight * 0.9) {
+          n.classList.add('active-node');
         }
       });
     }
-    window.addEventListener('scroll', checkScrollReveal);
-    window.addEventListener('load', checkScrollReveal);
+    window.addEventListener('scroll', verifyNodesReveal);
+    window.addEventListener('load', verifyNodesReveal);
 
-    /* --- ANIMATED HIGH-VISIBILITY BACKGROUND LAYER ENGINE --- */
-    function initAurora() {
-      const canvas = document.getElementById('aurora-canvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      
-      let w = canvas.width = window.innerWidth;
-      let h = canvas.height = window.innerHeight;
-      
+    /* --- MOUSE CURSOR GLOW INTERACTION SYSTEM --- */
+    window.addEventListener('mousemove', (e) => {
+      const glow = document.getElementById('cursor-glow');
+      glow.style.left = `${e.clientX}px`;
+      glow.style.top = `${e.clientY}px`;
+    });
+
+    /* --- 11. DYNAMIC SKILLS BAR TRACK FILL --- */
+    function triggerSkillsAnimation() {
+      const tracks = document.querySelectorAll('.track-inner');
+      tracks.forEach(t => {
+        t.style.width = t.getAttribute('data-width');
+      });
+    }
+
+    /* --- 10. ANIMATED METRICS COUNTER LOOP --- */
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(c => {
+      const target = parseInt(c.getAttribute('data-target'));
+      let current = 0;
+      const step = target / 50;
+      function update() {
+        current += step;
+        if(current < target) {
+          c.innerText = Math.floor(current) + "+";
+          setTimeout(update, 20);
+        } else {
+          c.innerText = target + "+";
+        }
+      }
+      update();
+    });
+
+    /* --- SYSTEM PARALLAX MESH BACKGROUND MATRIX --- */
+    function initMeshEngine() {
+      const cvs = document.getElementById('canvas-matrix');
+      const ctx = cvs.getContext('2d');
+      let w = cvs.width = window.innerWidth;
+      let h = cvs.height = window.innerHeight;
+
       window.addEventListener('resize', () => {
-        w = canvas.width = window.innerWidth;
-        h = canvas.height = window.innerHeight;
+        w = cvs.width = window.innerWidth;
+        h = cvs.height = window.innerHeight;
       });
 
-      const baseColors = ['#9d4edd', '#00f5d4', '#3a86ff'];
       const nodes = [];
-      
-      for(let i=0; i<5; i++) {
+      const tints = ['#3B82F6', '#8B5CF6', '#06B6D4'];
+      for(let i=0; i<4; i++) {
         nodes.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
-          radius: Math.random() * 255 + 250,
-          color: baseColors[i % baseColors.length],
-          phaseX: Math.random() * Math.PI * 2,
-          phaseY: Math.random() * Math.PI * 2,
-          speed: Math.random() * 0.002 + 0.001
+          x: Math.random() * w, y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4,
+          r: Math.random() * 200 + 200, tint: tints[i % tints.length],
+          pX: Math.random() * Math.PI, pY: Math.random() * Math.PI
         });
       }
 
-      function paint() {
-        requestAnimationFrame(paint);
-        ctx.fillStyle = '#020205';
+      function draw() {
+        requestAnimationFrame(draw);
+        ctx.fillStyle = '#050816';
         ctx.fillRect(0, 0, w, h);
         ctx.globalCompositeOperation = 'screen';
 
         nodes.forEach(n => {
-          n.phaseX += n.speed;
-          n.phaseY += n.speed;
-          let cx = n.x + Math.sin(n.phaseX) * 60;
-          let cy = n.y + Math.cos(n.phaseY) * 60;
+          n.pX += 0.001; n.pY += 0.001;
+          let cx = n.x + Math.sin(n.pX) * 40;
+          let cy = n.y + Math.cos(n.pY) * 40;
 
-          let r = parseInt(n.color.slice(1,3), 16),
-              g = parseInt(n.color.slice(3,5), 16),
-              b = parseInt(n.color.slice(5,7), 16);
-
-          let grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, n.radius);
-          grad.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0.12)`);
-          grad.addColorStop(0.6, `rgba(${r}, ${g}, ${b}, 0.02)`);
+          let grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, n.r);
+          grad.addColorStop(0, n.tint === '#3B82F6' ? 'rgba(59,130,246,0.08)' : n.tint === '#8B5CF6' ? 'rgba(139,92,246,0.06)' : 'rgba(6,182,212,0.06)');
           grad.addColorStop(1, 'transparent');
 
           ctx.fillStyle = grad;
-          ctx.beginPath();
-          ctx.arc(cx, cy, n.radius, 0, Math.PI * 2);
-          ctx.fill();
+          ctx.beginPath(); ctx.arc(cx, cy, n.r, 0, Math.PI * 2); ctx.fill();
 
           n.x += n.vx; n.y += n.vy;
-          if (n.x < -n.radius) n.x = w + n.radius;
-          if (n.x > w + n.radius) n.x = -n.radius;
-          if (n.y < -n.radius) n.y = h + n.radius;
-          if (n.y > h + n.radius) n.y = -n.radius;
+          if(n.x < -n.r) n.x = w + n.r; if(n.x > w + n.r) n.x = -n.r;
+          if(n.y < -n.r) n.y = h + n.r; if(n.y > h + n.r) n.y = -n.r;
         });
       }
-      paint();
+      draw();
     }
+    initMeshEngine();
 
-    /* --- LIVE TELEMETRY SIMULATOR BLOCK --- */
-    const traceLogs = [
+    /* --- REALTIME CONSOLE TELEMETRY LOGGER --- */
+    const traceStrings = [
       "booting beltah_env_matrix... SUCCESS",
-      "allocating local vcf core storage limits...",
-      "mapping digital system frameworks... ACTIVE",
-      "verifying remote chat modulation queues...",
-      "establishing plumbing pipeline tracking loops...",
-      "Beltah Tech Engine: STATUS OK",
-      "Beltah Plumbing Portal: STABLE",
-      "all production streams live on Vercel infrastructure."
+      "allocating premium SaaS color fields... ACTIVE",
+      "ingesting system operational domains...",
+      "mapping portfolio grid components...",
+      "verifying remote chat metrics... 100% OK",
+      "loading WhatsApp booking pipeline engine...",
+      "Beltah Tech Systems: OPERATIONAL SERVICE",
+      "system background threads working cleanly inside Vercel mesh."
     ];
 
-    function runTelemetry() {
-      const target = document.getElementById('console-stream');
-      if (!target) return;
-      let count = 0;
+    function runTelemetryConsole() {
+      const box = document.getElementById('live-terminal');
+      if(!box) return;
+      let lineIdx = 0;
 
-      function loop() {
-        if(target.children.length > 8) target.removeChild(target.firstChild);
-        const line = document.createElement('div');
-        line.className = 'term-ln';
-        line.innerHTML = `<span class="term-pmp">&gt;_</span> <span style="color:#fff">${traceLogs[count % traceLogs.length]}</span>`;
-        target.appendChild(line);
-        count++;
-        setTimeout(loop, Math.random() * 1200 + 1000);
+      function renderLine() {
+        if(box.children.length > 8) box.removeChild(box.firstChild);
+        const div = document.createElement('div');
+        div.style.display = 'flex'; div.style.gap = '0.5rem';
+        div.innerHTML = `<span style="color:var(--secondary);font-weight:bold;">&gt;_</span> <span style="color:var(--text);">${traceStrings[lineIdx % traceStrings.length]}</span>`;
+        box.appendChild(div);
+        lineIdx++;
+        setTimeout(renderLine, Math.random() * 1500 + 1000);
       }
-      loop();
+      renderLine();
     }
+    runTelemetryConsole();
 
-    /* --- DIRECT WHATSAPP PIPELINE DISPATCH ENGINE --- */
-    function executeBookingSequence(e) {
+    /* --- 5. HIGH-PERFORMANCE EXTENDED WHATSAPP PAYLOAD TRANSLATOR --- */
+    function processBookingSequence(e) {
       e.preventDefault();
-      const name = document.getElementById('client-name').value;
-      const domain = document.getElementById('project-domain').value;
-      const specs = document.getElementById('project-specs').value;
+      
+      const name = document.getElementById('bk-name').value;
+      const company = document.getElementById('bk-company').value;
+      const phone = document.getElementById('bk-phone').value;
+      const email = document.getElementById('bk-email').value;
+      const service = document.getElementById('bk-service').value;
+      const budget = document.getElementById('bk-budget').value;
+      const date = document.getElementById('bk-date').value;
+      const timeline = document.getElementById('bk-timeline').value;
+      const desc = document.getElementById('bk-desc').value;
 
-      // Construct encoded clear-text operational message matrix
-      const textBlock = `*BELTAH SYSTEMS OPERATIONAL BRIEF*\n\n` +
-                        `• *Client Identity:* ${name}\n` +
-                        `• *Target Domain:* ${domain}\n` +
-                        `• *Project Specifications:* ${specs}\n\n` +
-                        `_System notification dispatched via Beltah Portfolio Master Terminal._`;
+      const messagePayload = 
+        `Hello Beltah Systems.\n\n` +
+        `I'd like to book a consultation.\n\n` +
+        `*Name:*\n${name}\n\n` +
+        `*Company:*\n${company}\n\n` +
+        `*Phone:*\n${phone}\n\n` +
+        `*Email:*\n${email}\n\n` +
+        `*Service:*\n${service}\n\n` +
+        `*Budget:*\n${budget}\n\n` +
+        `*Preferred Date:*\n${date}\n\n` +
+        `*Timeline:*\n${timeline}\n\n` +
+        `*Project Description:*\n${desc}\n\n` +
+        `Please contact me.`;
 
-      const uri = `https://wa.me/254700000000?text=${encodeURIComponent(textBlock)}`;
-      window.open(uri, '_blank');
+      const targetURL = `https://wa.me/254700000000?text=${encodeURIComponent(messagePayload)}`;
+      window.open(targetURL, '_blank');
     }
-
-    /* --- TAB DEPLOYMENT LOOPS --- */
-    document.querySelectorAll('.matrix-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.matrix-btn').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.matrix-content-pane').forEach(p => p.classList.remove('active'));
-        btn.classList.add('active');
-        document.getElementById(btn.getAttribute('data-target')).classList.add('active');
-      });
-    });
-
-    document.addEventListener('DOMContentLoaded', () => {
-      initAurora();
-      runTelemetry();
-    });
   </script>
 </body>
 </html>
