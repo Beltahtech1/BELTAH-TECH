@@ -12,22 +12,22 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    /* --- 1. ENTERPRISE PREMIUM PALETTE DESIGN --- */
+    /* --- PREMIUM COLOR SYSTEM & CONTRAST CONFIGURATION --- */
     :root {
-      --bg: #050816;
-      --surface: #0B1220;
-      --card: #111827;
+      --bg-base: #050816;
+      --bg-surface: #0B1220;
+      --bg-card: rgba(17, 24, 39, 0.75);
 
-      --primary: #3B82F6;
-      --secondary: #06B6D4;
-      --accent: #8B5CF6;
+      --primary: #3B82F6;     /* Blue for Primary Actions */
+      --secondary: #06B6D4;   /* Cyan for Highlights */
+      --accent: #8B5CF6;      /* Purple for Secondary Accents */
       --success: #22C55E;
 
-      --text: #F8FAFC;
-      --muted: #94A3B8;
+      --text-main: #F8FAFC;   /* High Contrast White Headings */
+      --text-muted: #94A3B8;  /* Premium Muted Gray for Paragraphs */
 
-      --gradient: linear-gradient(135deg, #3B82F6, #8B5CF6, #06B6D4);
-      --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      --gradient: linear-gradient(135deg, var(--primary), var(--accent), var(--secondary));
+      --shadow-soft: 0 20px 50px rgba(59, 130, 246, 0.15); /* Softer Blue/Cyan Shadow */
       
       --font-sans: 'Plus Jakarta Sans', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
@@ -46,18 +46,67 @@
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--text);
+      background-color: var(--bg-base);
+      color: var(--text-main);
       font-family: var(--font-sans);
       overflow-x: hidden;
       min-height: 100vh;
+      position: relative;
     }
 
-    /* --- 14. GLOWING LOADING MATRIX --- */
+    /* --- OPTION 3: ANIMATED AURORA BACKGROUND ENGINE --- */
+    .aurora-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+      background: #050816;
+    }
+
+    .aurora-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      opacity: 0.22;
+      mix-blend-mode: screen;
+      animation: auroraMovement 25s infinite alternate ease-in-out;
+    }
+
+    .blob-blue {
+      top: -10%; right: -10%;
+      width: 55vw; height: 55vw;
+      background: var(--primary);
+      animation-duration: 20s;
+    }
+
+    .blob-cyan {
+      bottom: -15%; left: -5%;
+      width: 50vw; height: 50vw;
+      background: var(--secondary);
+      animation-duration: 28s;
+      animation-delay: -5s;
+    }
+
+    .blob-purple {
+      top: 40%; left: 30%;
+      width: 45vw; height: 45vw;
+      background: var(--accent);
+      animation-duration: 24s;
+      animation-delay: -10s;
+    }
+
+    @keyframes auroraMovement {
+      0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+      50% { transform: translate(60px, 40px) scale(1.15) rotate(120deg); }
+      100% { transform: translate(-40px, 70px) scale(0.9) rotate(240deg); }
+    }
+
+    /* --- 14. LOADING SCREEN --- */
     #loading-screen {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
-      background: var(--bg);
+      background: var(--bg-base);
       z-index: 9999;
       display: flex;
       flex-direction: column;
@@ -77,29 +126,8 @@
     }
 
     @keyframes logoGlow {
-      0%, 100% { filter: drop-shadow(0 0 10px rgba(59,130,246,0.3)); opacity: 0.6; }
-      50% { filter: drop-shadow(0 0 30px rgba(139,92,246,0.8)); opacity: 1; }
-    }
-
-    /* --- ADVANCED ENGINE BACKGROUND BLOBS --- */
-    #canvas-matrix {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    /* --- CURSOR GLOW INTERACTION SYSTEM --- */
-    #cursor-glow {
-      position: fixed;
-      top: 0; left: 0;
-      width: 400px; height: 400px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(6,182,212,0.06) 0%, transparent 70%);
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: 2;
-      transition: width 0.3s, height 0.3s;
+      0%, 100% { filter: drop-shadow(0 0 15px rgba(59,130,246,0.2)); opacity: 0.6; }
+      50% { filter: drop-shadow(0 0 35px rgba(6,182,212,0.6)); opacity: 1; }
     }
 
     /* --- SCROLL PROGRESS INDICATOR --- */
@@ -119,30 +147,32 @@
       padding: 0 1.5rem;
     }
 
-    /* --- PREMIUM GLASS COMPONENT DESIGNS --- */
+    /* --- REFINED SUBTLE GLASS COMPONENT DESIGN --- */
     .panel-glass {
-      background: var(--surface);
+      background: var(--bg-surface);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08); /* Refined 1px Border */
       border-radius: 24px;
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-soft);
     }
 
     .card-glass {
-      background: var(--card);
-      border: 1px solid rgba(255, 255, 255, 0.03);
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08); /* Clean Unified Edge Border */
       border-radius: 16px;
       transition: all 0.5s var(--ease-smooth);
-      perspective: 1000px;
     }
 
     .card-glass:hover {
-      border-color: rgba(59, 130, 246, 0.3);
-      box-shadow: 0 15px 35px rgba(59, 130, 246, 0.1);
+      border-color: rgba(6, 182, 212, 0.3); /* Cyan Highlight Border on Hover */
+      box-shadow: 0 15px 35px rgba(6, 182, 212, 0.1);
+      transform: translateY(-2px);
     }
 
-    /* --- 8. ADVANCED BLUR-TO-CLEAR STAGGERED REVEAL --- */
+    /* --- 8. REVEAL ANIMATIONS --- */
     .reveal-trigger {
       opacity: 0;
       filter: blur(15px);
@@ -156,7 +186,15 @@
       transform: translateY(0);
     }
 
-    /* --- INTERFACE HEADER core --- */
+    /* --- HEADERS & TYPOGRAPHY CONFIGURATION --- */
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--text-main) !important; /* High Contrast Headers Override */
+    }
+
+    p {
+      color: var(--text-muted) !important; /* Muted Paragraphs Override */
+    }
+
     header {
       display: flex;
       justify-content: space-between;
@@ -175,11 +213,11 @@
     .brand-meta p {
       font-size: 0.75rem;
       font-family: var(--font-mono);
-      color: var(--secondary);
+      color: var(--secondary) !important;
       font-weight: 600;
     }
 
-    /* --- 2. PREMIUM HERO ARCHITECTURE --- */
+    /* --- 2. HERO SECTION --- */
     .hero-layout {
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
@@ -204,9 +242,6 @@
       line-height: 1.1;
       letter-spacing: -2px;
       margin-bottom: 1.5rem;
-      background: linear-gradient(to right, #fff, var(--muted));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
 
     .hero-context h2 span {
@@ -216,7 +251,6 @@
     }
 
     .hero-context .sub-tags {
-      color: var(--muted);
       font-size: 1.05rem;
       line-height: 1.8;
       margin-bottom: 3rem;
@@ -243,15 +277,15 @@
     }
 
     .btn-gradient {
-      background: var(--gradient);
+      background: var(--primary); /* Blue Primary Action */
       color: white;
       border: none;
-      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.25);
     }
 
     .btn-gradient:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 35px rgba(59, 130, 246, 0.5);
+      background: #2563EB;
+      box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
     }
 
     .btn-outline {
@@ -262,10 +296,10 @@
 
     .btn-outline:hover {
       background: rgba(255, 255, 255, 0.08);
-      border-color: var(--secondary);
+      border-color: var(--secondary); /* Cyan Accent Highlight */
     }
 
-    /* --- LIVE TELEMETRY SYSTEM CONSOLE --- */
+    /* --- CONSOLE SYSTEM TELEMETRY PANEL --- */
     .console-panel {
       padding: 2rem;
       display: flex;
@@ -291,14 +325,13 @@
       font-family: var(--font-mono);
       font-size: 0.85rem;
       line-height: 1.7;
-      color: var(--accent);
       min-height: 280px;
       display: flex;
       flex-direction: column;
       gap: 0.6rem;
     }
 
-    /* --- 10. STATISTICS STRIP ARCHITECTURE --- */
+    /* --- 10. STATISTICS --- */
     .metrics-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -314,20 +347,17 @@
     .metric-card h4 {
       font-size: 3rem;
       font-weight: 800;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: var(--secondary) !important; /* Cyan Stats highlights */
       margin-bottom: 0.5rem;
     }
 
     .metric-card p {
-      color: var(--muted);
       font-size: 0.95rem;
       font-weight: 600;
       letter-spacing: 0.5px;
     }
 
-    /* --- 3. DEDICATED DOMAIN SERVICES ARCHITECTURE --- */
+    /* --- 3. SERVICES SECTION --- */
     .section-header {
       text-align: center;
       margin-bottom: 3.5rem;
@@ -341,7 +371,6 @@
     }
 
     .section-header p {
-      color: var(--muted);
       font-size: 1.05rem;
     }
 
@@ -367,8 +396,8 @@
       padding-bottom: 1rem;
     }
 
-    .service-block.tech h3 { color: var(--primary); }
-    .service-block.plumb h3 { color: var(--secondary); }
+    .service-block.tech h3 { color: var(--primary) !important; }
+    .service-block.plumb h3 { color: var(--secondary) !important; }
 
     .nodes-list {
       display: flex;
@@ -387,22 +416,20 @@
       font-size: 0.9rem;
     }
     .tech .node-item i { color: var(--accent); }
-    .plumb .node-item i { color: var(--success); }
+    .plumb .node-item i { color: var(--secondary); }
 
     .node-text h5 {
       font-size: 1.05rem;
       font-weight: 700;
-      color: var(--text);
       margin-bottom: 0.15rem;
     }
 
     .node-text p {
       font-size: 0.9rem;
-      color: var(--muted);
       line-height: 1.5;
     }
 
-    /* --- 11. DYNAMIC SKILLS MATRIX --- */
+    /* --- 11. SKILLS MATRIX --- */
     .skills-wrapper {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -414,7 +441,7 @@
       background: rgba(255,255,255,0.01);
       padding: 1.5rem;
       border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
     }
 
     .skill-meta {
@@ -433,12 +460,12 @@
 
     .track-inner {
       height: 100%; width: 0%;
-      background: var(--gradient);
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
       border-radius: 4px;
       transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    /* --- 4 & 15. DYNAMIC SCALABLE PORTFOLIO ENGINE --- */
+    /* --- 4 & 15. RESPONSIVE PORTFOLIO GRID --- */
     .portfolio-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -455,7 +482,7 @@
 
     .showcase-img-frame {
       width: 100%; height: 200px;
-      background: linear-gradient(45deg, #1f2937, #111827);
+      background: linear-gradient(45deg, #111827, #0b1220);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -470,8 +497,8 @@
     }
 
     .showcase-card:hover .showcase-img-frame i {
-      transform: scale(1.1) rotate(3deg);
-      color: rgba(59, 130, 246, 0.2);
+      transform: scale(1.1);
+      color: rgba(6, 182, 212, 0.2);
     }
 
     .showcase-body {
@@ -488,7 +515,6 @@
     }
 
     .showcase-body p {
-      color: var(--muted);
       font-size: 0.95rem;
       line-height: 1.6;
       margin-bottom: 1.5rem;
@@ -508,9 +534,9 @@
       font-weight: 700;
       padding: 0.3rem 0.75rem;
       border-radius: 6px;
-      background: rgba(59, 130, 246, 0.1);
-      color: var(--primary);
-      border: 1px solid rgba(59, 130, 246, 0.15);
+      background: rgba(6, 182, 212, 0.1);
+      color: var(--secondary);
+      border: 1px solid rgba(6, 182, 212, 0.15);
     }
 
     .showcase-anchors {
@@ -529,7 +555,7 @@
       transition: all 0.3s;
     }
 
-    /* --- 9. TRUST TESTIMONIAL MATRIX --- */
+    /* --- 9. TESTIMONIALS --- */
     .testimonials-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -548,13 +574,12 @@
     }
 
     .review-card p {
-      color: var(--text);
       font-size: 1rem;
       line-height: 1.6;
       font-style: italic;
     }
 
-    /* --- 5 & 7. WHATSAPP DATA PIPELINE & SCHEDULER --- */
+    /* --- 5 & 7. WHATSAPP ENGINE HUB & SCHEDULER --- */
     .pipeline-grid {
       display: grid;
       grid-template-columns: 1fr 1.2fr;
@@ -575,7 +600,6 @@
     }
 
     .pipeline-info p {
-      color: var(--muted);
       line-height: 1.7;
       margin-bottom: 2rem;
     }
@@ -620,11 +644,10 @@
     .input-block label {
       font-size: 0.85rem;
       font-weight: 700;
-      color: var(--text);
     }
 
     .form-ctrl {
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(5, 8, 22, 0.6);
       border: 1px solid rgba(255,255,255,0.08);
       padding: 0.9rem 1.2rem;
       border-radius: 12px;
@@ -636,15 +659,15 @@
 
     .form-ctrl:focus {
       outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 15px rgba(59, 130, 246, 0.25);
+      border-color: var(--secondary);
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
     }
 
     textarea.form-ctrl {
       resize: none; min-height: 120px;
     }
 
-    /* --- 12. HIGH-VISIBILITY CONTACT CHANNEL REGISTRY --- */
+    /* --- 12. CONTACT SECTION --- */
     .channels-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -663,13 +686,12 @@
 
     .channel-anchor i {
       font-size: 1.75rem;
-      color: var(--primary);
     }
 
     .channel-meta h6 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.15rem; }
-    .channel-meta p { font-size: 0.85rem; color: var(--muted); }
+    .channel-meta p { font-size: 0.85rem; }
 
-    /* --- 13. ENTERPRISE FOOTER SYSTEM --- */
+    /* --- 13. FOOTER SECTION --- */
     footer {
       border-top: 1px solid rgba(255,255,255,0.05);
       padding: 5rem 0 3rem 0;
@@ -687,15 +709,15 @@
     }
 
     .footer-brand h5 { font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; }
-    .footer-brand p { color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+    .footer-brand p { font-size: 0.95rem; line-height: 1.6; }
 
     .footer-col h6 {
-      font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text);
+      font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem;
     }
 
     .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
-    .footer-col ul a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
-    .footer-col ul a:hover { color: var(--primary); }
+    .footer-col ul a { text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col ul a:hover { color: var(--secondary); }
 
     .footer-bottom {
       border-top: 1px solid rgba(255,255,255,0.05);
@@ -706,10 +728,9 @@
       flex-wrap: wrap;
       gap: 1.5rem;
       font-size: 0.9rem;
-      color: var(--muted);
     }
 
-    /* --- 6. FLOATING SYSTEM WHATSAPP HUB --- */
+    /* --- 6. FLOATING WHATSAPP BUTTON --- */
     #floating-hub {
       position: fixed;
       bottom: 2.5rem; right: 2.5rem;
@@ -721,7 +742,7 @@
     }
 
     .hub-tip {
-      background: var(--surface);
+      background: var(--bg-surface);
       border: 1px solid rgba(255,255,255,0.08);
       padding: 0.6rem 1.2rem;
       border-radius: 12px;
@@ -732,7 +753,7 @@
       opacity: 0;
       transform: translateX(15px);
       transition: all 0.3s var(--ease-smooth);
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-soft);
       pointer-events: none;
     }
 
@@ -749,12 +770,12 @@
       justify-content: center;
       color: white;
       font-size: 1.75rem;
-      box-shadow: 0 0 25px rgba(34, 197, 94, 0.4);
+      box-shadow: 0 0 25px rgba(34, 197, 94, 0.3);
       animation: hubPulse 2s infinite;
     }
 
     @keyframes hubPulse {
-      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
+      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
       70% { box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
       100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
     }
@@ -762,7 +783,14 @@
 </head>
 <body>
 
-  <!-- Loading Screen Framework -->
+  <!-- Aurora Backdrop Nodes Layer -->
+  <div class="aurora-bg">
+    <div class="aurora-blob blob-blue"></div>
+    <div class="aurora-blob blob-cyan"></div>
+    <div class="aurora-blob blob-purple"></div>
+  </div>
+
+  <!-- Loading Screen Module -->
   <div id="loading-screen">
     <div class="loader-logo">BELTAH SYSTEMS</div>
   </div>
@@ -770,13 +798,9 @@
   <!-- Realtime Scroll Infrastructure -->
   <div id="scroll-progress"></div>
 
-  <!-- Dynamic Render Canvas Grid -->
-  <canvas id="canvas-matrix"></canvas>
-  <div id="cursor-glow"></div>
-
   <div class="app-shell">
     
-    <!-- Top Identity Navigation Core -->
+    <!-- Identity Header Navigation Core -->
     <header class="panel-glass reveal-trigger">
       <div class="brand-meta">
         <h1>BELTAH SYSTEMS</h1>
@@ -789,7 +813,7 @@
       </div>
     </header>
 
-    <!-- 2. HIGH CONTRAST UPGRADED HERO LAYER -->
+    <!-- 2. HIGH-END CONTRAST HERO LAYER -->
     <section class="hero-layout">
       <div class="panel-glass hero-context reveal-trigger">
         <h2>Building Smart <span>Digital Solutions</span> for Businesses.</h2>
@@ -809,15 +833,13 @@
             <div class="w-dot wd-y"></div>
             <div class="w-dot wd-g"></div>
           </div>
-          <div style="font-family:var(--font-mono); font-size:0.8rem; color:var(--muted)">beltah_core_telemetry.sh</div>
+          <div style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-muted)">beltah_core_telemetry.sh</div>
         </div>
-        <div class="console-body" id="live-terminal">
-          <!-- Dynamic System String Injection -->
-        </div>
-      </section>
+        <div class="console-body" id="live-terminal"></div>
+      </div>
     </section>
 
-    <!-- 10. ANIMATED STATISTICS MATRIX STRIP -->
+    <!-- 10. STATISTICS FRAMEWORK -->
     <section class="panel-glass metrics-container reveal-trigger">
       <div class="metric-card">
         <h4 class="counter" data-target="40">0</h4>
@@ -832,12 +854,12 @@
         <p>Client Satisfaction %</p>
       </div>
       <div class="metric-card">
-        <h4 style="background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">24/7</h4>
+        <h4>24/7</h4>
         <p>Support Availability</p>
       </div>
     </section>
 
-    <!-- 3. DETAILED SERVICES ARCHITECTURE LAYERS -->
+    <!-- 3. SERVICES DIRECTORY -->
     <section style="margin-bottom: 6rem;">
       <div class="section-header reveal-trigger">
         <h2>Operational Service Ecosystem</h2>
@@ -845,9 +867,9 @@
       </div>
 
       <div class="services-master-grid">
-        <!-- Tech Operations Array Block -->
-        <div class="panel-glass service-block tech reveal-trigger">
-          <h3><i class="fa-solid fa-laptop-code"></i> Beltah Tech</h3>
+        <!-- Beltah Tech Block -->
+        <div class="card-glass service-block tech reveal-trigger">
+          <h3><i class="fa-solid fa-laptop-code" style="color:var(--primary)"></i> Beltah Tech</h3>
           <div class="nodes-list">
             <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Custom Websites</h5><p>Tailored premium web products optimized for speed and scaling boundaries.</p></div></div>
             <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Portfolio Websites</h5><p>High-visibility personal profiles equipped with immersive tracking matrices.</p></div></div>
@@ -859,8 +881,8 @@
         </div>
 
         <!-- Software Development Block -->
-        <div class="panel-glass service-block tech reveal-trigger">
-          <h3><i class="fa-solid fa-cubes"></i> Software Development</h3>
+        <div class="card-glass service-block tech reveal-trigger">
+          <h3><i class="fa-solid fa-cubes" style="color:var(--accent)"></i> Software Development</h3>
           <div class="nodes-list">
             <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>React Applications</h5><p>Reactive, modular state machines delivering fluid client-side operations.</p></div></div>
             <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Firebase Systems</h5><p>Serverless infrastructure real-time bindings, authentication, and security systems.</p></div></div>
@@ -871,8 +893,8 @@
         </div>
 
         <!-- AI & Automation Block -->
-        <div class="panel-glass service-block tech reveal-trigger">
-          <h3><i class="fa-solid fa-robot"></i> AI & Automation</h3>
+        <div class="card-glass service-block tech reveal-trigger">
+          <h3><i class="fa-solid fa-robot" style="color:var(--secondary)"></i> AI & Automation</h3>
           <div class="nodes-list">
             <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>WhatsApp Bots</h5><p>Automated interaction engines driving customer retention loops inside WhatsApp.</p></div></div>
             <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>AI Chatbots</h5><p>Intelligent dialog structures trained to answer customer queries instantly.</p></div></div>
@@ -883,8 +905,8 @@
         </div>
 
         <!-- Digital Services Block -->
-        <div class="panel-glass service-block tech reveal-trigger">
-          <h3><i class="fa-solid fa-headset"></i> Digital Services</h3>
+        <div class="card-glass service-block tech reveal-trigger">
+          <h3><i class="fa-solid fa-headset" style="color:var(--primary)"></i> Digital Services</h3>
           <div class="nodes-list">
             <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Chat Moderation</h5><p>Remote oversight ensuring strict policy compliance across engagement tracks.</p></div></div>
             <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Community Management</h5><p>Cultivating active member interactions and scaling community nodes cleanly.</p></div></div>
@@ -895,8 +917,8 @@
         </div>
 
         <!-- Networking & IT Block -->
-        <div class="panel-glass service-block tech reveal-trigger">
-          <h3><i class="fa-solid fa-network-wired"></i> Networking & IT</h3>
+        <div class="card-glass service-block tech reveal-trigger">
+          <h3><i class="fa-solid fa-network-wired" style="color:var(--accent)"></i> Networking & IT</h3>
           <div class="nodes-list">
             <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Computer Setup</h5><p>Optimizing custom operating system installations and physical workstation mounts.</p></div></div>
             <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Software Installation</h5><p>Configuring development tools and resolving underlying dependency conflicts.</p></div></div>
@@ -906,8 +928,8 @@
         </div>
 
         <!-- Beltah Plumbing Array Block -->
-        <div class="panel-glass service-block plumb reveal-trigger">
-          <h3><i class="fa-solid fa-faucet-drip"></i> Beltah Plumbing</h3>
+        <div class="card-glass service-block plumb reveal-trigger">
+          <h3><i class="fa-solid fa-faucet-drip" style="color:var(--secondary)"></i> Beltah Plumbing</h3>
           <div class="nodes-list">
             <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Residential Plumbing</h5><p>Mapping, installation, and upkeep of household water infrastructures.</p></div></div>
             <div class="node-item"><i class="fa-solid fa-circle-dot"></i><div class="node-text"><h5>Commercial Plumbing</h5><p>Heavy-duty fluid loop configurations engineered for high-occupancy sites.</p></div></div>
@@ -920,7 +942,7 @@
       </div>
     </section>
 
-    <!-- 11. SKILLS METRICS GRID SECTION -->
+    <!-- 11. SKILLS MATRIX -->
     <section style="margin-bottom: 6rem;">
       <div class="section-header reveal-trigger">
         <h2>Technical Core Capacities</h2>
@@ -958,7 +980,7 @@
       </div>
     </section>
 
-    <!-- 4 & 15. EXPANDED PORTFOLIO & FUTURE DOMAINS MATRIX -->
+    <!-- 4 & 15. PORTFOLIO MATRIX -->
     <section style="margin-bottom: 6rem;" id="showcase-anchor">
       <div class="section-header reveal-trigger">
         <h2>Production Node Deployments</h2>
@@ -966,7 +988,6 @@
       </div>
 
       <div class="portfolio-grid">
-        <!-- Marketplace Node -->
         <div class="card-glass showcase-card reveal-trigger">
           <div class="showcase-img-frame"><i class="fa-solid fa-store"></i></div>
           <div class="showcase-body">
@@ -982,7 +1003,6 @@
           </div>
         </div>
 
-        <!-- VCF Gains Node -->
         <div class="card-glass showcase-card reveal-trigger">
           <div class="showcase-img-frame"><i class="fa-solid fa-address-card"></i></div>
           <div class="showcase-body">
@@ -998,7 +1018,6 @@
           </div>
         </div>
 
-        <!-- Plumbing Portal Node -->
         <div class="card-glass showcase-card reveal-trigger">
           <div class="showcase-img-frame"><i class="fa-solid fa-faucet"></i></div>
           <div class="showcase-body">
@@ -1014,14 +1033,13 @@
           </div>
         </div>
 
-        <!-- Automation Hub Future Slot -->
-        <div class="card-glass showcase-card reveal-trigger" style="opacity: 0.65;">
+        <div class="card-glass showcase-card reveal-trigger" style="opacity: 0.55;">
           <div class="showcase-img-frame"><i class="fa-solid fa-robot"></i></div>
           <div class="showcase-body">
             <h4>Automation Dashboard</h4>
             <p>Central workspace tracking system bot health, API consumption rates, and trigger behaviors across networks.</p>
             <div class="tech-pill-row">
-              <span class="tech-pill">Node.js</span><span class="tech-pill">Websockets</span><span class="tech-pill">AI Logic</span>
+              <span class="tech-pill">Node.js</span><span class="tech-pill">Websockets</span>
             </div>
             <div class="showcase-anchors">
               <a href="#" class="btn-outline" style="pointer-events: none;">Coming Soon...</a>
@@ -1029,14 +1047,13 @@
           </div>
         </div>
 
-        <!-- Client Portal Future Slot -->
-        <div class="card-glass showcase-card reveal-trigger" style="opacity: 0.65;">
+        <div class="card-glass showcase-card reveal-trigger" style="opacity: 0.55;">
           <div class="showcase-img-frame"><i class="fa-solid fa-network-wired"></i></div>
           <div class="showcase-body">
             <h4>Client Project Hub</h4>
             <p>Customer facing tracker for checking project progress metrics, wireframes, and payment statuses live.</p>
             <div class="tech-pill-row">
-              <span class="tech-pill">Next.js</span><span class="tech-pill">Database Matrix</span>
+              <span class="tech-pill">Next.js</span><span class="tech-pill">Database</span>
             </div>
             <div class="showcase-anchors">
               <a href="#" class="btn-outline" style="pointer-events: none;">Coming Soon...</a>
@@ -1046,29 +1063,29 @@
       </div>
     </section>
 
-    <!-- 9. SOCIAL VALIDATION TESTIMONIALS MODULE -->
+    <!-- 9. TESTIMONIALS MODULE -->
     <section style="margin-bottom: 6rem;">
       <div class="section-header reveal-trigger">
         <h2>System Endorsements</h2>
         <p>Verified performance evaluations provided by client nodes.</p>
       </div>
       <div class="testimonials-grid">
-        <div class="panel-glass review-card reveal-trigger">
+        <div class="card-glass review-card reveal-trigger">
           <div class="stars-row"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
           <p>"Professional service. Delivered on time. The dashboard interface greatly accelerated our regional data gathering cycles."</p>
         </div>
-        <div class="panel-glass review-card reveal-trigger">
+        <div class="card-glass review-card reveal-trigger">
           <div class="stars-row"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
           <p>"Amazing WhatsApp automation. Our response latencies vanished entirely once the rule engine took over the platform channel."</p>
         </div>
-        <div class="panel-glass review-card reveal-trigger">
+        <div class="card-glass review-card reveal-trigger">
           <div class="stars-row"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
           <p>"Highly recommended. Seamless architecture integration covering both web software tools and real-world commercial facility operations."</p>
         </div>
       </div>
     </section>
 
-    <!-- 5 & 7. END-TO-END AUTOMATED BOOKING FRAMEWORK -->
+    <!-- 5 & 7. AUTOMATED CONSULTATION PIPELINE -->
     <section class="panel-glass pipeline-grid reveal-trigger" id="pipeline-anchor">
       <div class="pipeline-info">
         <h3>Initialize System Engagement</h3>
@@ -1136,27 +1153,27 @@
       </form>
     </section>
 
-    <!-- 12. HIGH-VISIBILITY CONTACT CHANNEL REGISTRY -->
+    <!-- 12. HIGH-VISIBILITY CONTACT CHANNELS -->
     <section class="channels-grid reveal-trigger">
-      <a href="https://wa.me/254700000000" target="_blank" class="panel-glass channel-anchor">
+      <a href="https://wa.me/254700000000" target="_blank" class="card-glass channel-anchor">
         <i class="fa-brands fa-whatsapp" style="color:#22c55e"></i>
         <div class="channel-meta"><h6>WhatsApp Terminal</h6><p>Secure Instant Line</p></div>
       </a>
-      <a href="mailto:info@beltahsystems.com" class="panel-glass channel-anchor">
+      <a href="mailto:info@beltahsystems.com" class="card-glass channel-anchor">
         <i class="fa-solid fa-envelope" style="color:#ef4444"></i>
         <div class="channel-meta"><h6>Email Node</h6><p>Official Mail Dispatch</p></div>
       </a>
-      <a href="tel:+254700000000" class="panel-glass channel-anchor">
-        <i class="fa-solid fa-phone" style="color:#3b82f6"></i>
-        <div class="channel-meta"><h6>Voice Channel</h6><p>Direct Infrastructure Call</p></div>
+      <a href="tel:+254700000000" class="card-glass channel-anchor">
+        <i class="fa-solid fa-phone" style="color:var(--primary)"></i>
+        <div class="channel-meta"><h6>Voice Channel</h6><p>Direct Call Routing</p></div>
       </a>
-      <a href="#" class="panel-glass channel-anchor">
-        <i class="fa-brands fa-github" style="color:#f3f4f6"></i>
+      <a href="#" class="card-glass channel-anchor">
+        <i class="fa-brands fa-github" style="color:white"></i>
         <div class="channel-meta"><h6>GitHub Registry</h6><p>Source Code Repositories</p></div>
       </a>
     </section>
 
-    <!-- 13. MODERN SAAS FOOTER FRAMEWORK -->
+    <!-- 13. SAAS FOOTER -->
     <footer class="reveal-trigger">
       <div class="footer-grid">
         <div class="footer-brand">
@@ -1195,14 +1212,14 @@
 
   </div>
 
-  <!-- 6. FLOATING SYSTEM WHATSAPP ENGINE HUB -->
+  <!-- 6. FLOATING SYSTEM WHATSAPP HUB -->
   <a href="https://wa.me/254700000000" target="_blank" id="floating-hub">
     <div class="hub-tip">Need a Website? Chat with Beltah</div>
     <div class="hub-trigger"><i class="fa-brands fa-whatsapp"></i></div>
   </a>
 
   <script>
-    /* --- 14. LOADING SCREEN DISMISSER LOOPS --- */
+    /* --- 14. LOADING ENGINE DISMISSER --- */
     window.addEventListener('load', () => {
       const screen = document.getElementById('loading-screen');
       setTimeout(() => {
@@ -1212,7 +1229,7 @@
       }, 800);
     });
 
-    /* --- SCROLL METER MONITOR --- */
+    /* --- SCROLL PROGRESS LINE MONITOR --- */
     window.addEventListener('scroll', () => {
       const bar = document.getElementById('scroll-progress');
       const total = document.documentElement.scrollHeight - window.innerHeight;
@@ -1221,7 +1238,7 @@
       }
     });
 
-    /* --- 8. SMOOTH BLUR REVEAL STAGGER ENGINE --- */
+    /* --- 8. BLUR REVEAL STAGGER TRACKER --- */
     function verifyNodesReveal() {
       const nodes = document.querySelectorAll('.reveal-trigger');
       nodes.forEach(n => {
@@ -1234,14 +1251,7 @@
     window.addEventListener('scroll', verifyNodesReveal);
     window.addEventListener('load', verifyNodesReveal);
 
-    /* --- MOUSE CURSOR GLOW INTERACTION SYSTEM --- */
-    window.addEventListener('mousemove', (e) => {
-      const glow = document.getElementById('cursor-glow');
-      glow.style.left = `${e.clientX}px`;
-      glow.style.top = `${e.clientY}px`;
-    });
-
-    /* --- 11. DYNAMIC SKILLS BAR TRACK FILL --- */
+    /* --- 11. SKILLS FILL ENGINE --- */
     function triggerSkillsAnimation() {
       const tracks = document.querySelectorAll('.track-inner');
       tracks.forEach(t => {
@@ -1249,7 +1259,7 @@
       });
     }
 
-    /* --- 10. ANIMATED METRICS COUNTER LOOP --- */
+    /* --- 10. METRICS COUNTER LOOP --- */
     const counters = document.querySelectorAll('.counter');
     counters.forEach(c => {
       const target = parseInt(c.getAttribute('data-target'));
@@ -1267,66 +1277,15 @@
       update();
     });
 
-    /* --- SYSTEM PARALLAX MESH BACKGROUND MATRIX --- */
-    function initMeshEngine() {
-      const cvs = document.getElementById('canvas-matrix');
-      const ctx = cvs.getContext('2d');
-      let w = cvs.width = window.innerWidth;
-      let h = cvs.height = window.innerHeight;
-
-      window.addEventListener('resize', () => {
-        w = cvs.width = window.innerWidth;
-        h = cvs.height = window.innerHeight;
-      });
-
-      const nodes = [];
-      const tints = ['#3B82F6', '#8B5CF6', '#06B6D4'];
-      for(let i=0; i<4; i++) {
-        nodes.push({
-          x: Math.random() * w, y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4,
-          r: Math.random() * 200 + 200, tint: tints[i % tints.length],
-          pX: Math.random() * Math.PI, pY: Math.random() * Math.PI
-        });
-      }
-
-      function draw() {
-        requestAnimationFrame(draw);
-        ctx.fillStyle = '#050816';
-        ctx.fillRect(0, 0, w, h);
-        ctx.globalCompositeOperation = 'screen';
-
-        nodes.forEach(n => {
-          n.pX += 0.001; n.pY += 0.001;
-          let cx = n.x + Math.sin(n.pX) * 40;
-          let cy = n.y + Math.cos(n.pY) * 40;
-
-          let grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, n.r);
-          grad.addColorStop(0, n.tint === '#3B82F6' ? 'rgba(59,130,246,0.08)' : n.tint === '#8B5CF6' ? 'rgba(139,92,246,0.06)' : 'rgba(6,182,212,0.06)');
-          grad.addColorStop(1, 'transparent');
-
-          ctx.fillStyle = grad;
-          ctx.beginPath(); ctx.arc(cx, cy, n.r, 0, Math.PI * 2); ctx.fill();
-
-          n.x += n.vx; n.y += n.vy;
-          if(n.x < -n.r) n.x = w + n.r; if(n.x > w + n.r) n.x = -n.r;
-          if(n.y < -n.r) n.y = h + n.r; if(n.y > h + n.r) n.y = -n.r;
-        });
-      }
-      draw();
-    }
-    initMeshEngine();
-
-    /* --- REALTIME CONSOLE TELEMETRY LOGGER --- */
+    /* --- REALTIME CONSOLE LOGGER --- */
     const traceStrings = [
       "booting beltah_env_matrix... SUCCESS",
-      "allocating premium SaaS color fields... ACTIVE",
-      "ingesting system operational domains...",
-      "mapping portfolio grid components...",
-      "verifying remote chat metrics... 100% OK",
-      "loading WhatsApp booking pipeline engine...",
-      "Beltah Tech Systems: OPERATIONAL SERVICE",
-      "system background threads working cleanly inside Vercel mesh."
+      "ingesting animated aurora layers... ACTIVE",
+      "applying premium contrast text matrices...",
+      "mapping portfolio grid nodes...",
+      "verifying remote chat targets... 100% OK",
+      "loading WhatsApp booking engine...",
+      "Beltah Systems: ENHANCED SAAS VISUALS"
     ];
 
     function runTelemetryConsole() {
@@ -1338,7 +1297,7 @@
         if(box.children.length > 8) box.removeChild(box.firstChild);
         const div = document.createElement('div');
         div.style.display = 'flex'; div.style.gap = '0.5rem';
-        div.innerHTML = `<span style="color:var(--secondary);font-weight:bold;">&gt;_</span> <span style="color:var(--text);">${traceStrings[lineIdx % traceStrings.length]}</span>`;
+        div.innerHTML = `<span style="color:var(--secondary);font-weight:bold;">&gt;_</span> <span style="color:var(--text-main);">${traceStrings[lineIdx % traceStrings.length]}</span>`;
         box.appendChild(div);
         lineIdx++;
         setTimeout(renderLine, Math.random() * 1500 + 1000);
@@ -1347,7 +1306,7 @@
     }
     runTelemetryConsole();
 
-    /* --- 5. HIGH-PERFORMANCE EXTENDED WHATSAPP PAYLOAD TRANSLATOR --- */
+    /* --- 5. AUTOMATED PAYLOAD MESSAGE GENERATOR --- */
     function processBookingSequence(e) {
       e.preventDefault();
       
